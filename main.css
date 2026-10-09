@@ -1,0 +1,470 @@
+/* =====================================================
+   DISEÑO - cambien los colores aquí arriba y se actualiza todo
+   Estilo: "sticker" con bordes gruesos, sombras duras y
+   secciones de colores distintos mientras se hace scroll.
+   ===================================================== */
+:root {
+  --cielo: #3fa9f5;
+  --cielo-claro: #bfe6ff;
+  --crema: #fff6d6;
+  --noche: #14163a;
+  --rojo: #ff4d4d;
+  --amarillo: #ffd23f;
+  --tinta: #111111;
+  --blanco: #ffffff;
+
+  --fuente-titulo: 'Dela Gothic One', 'Impact', sans-serif;
+  --fuente-texto: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--fuente-texto);
+  color: var(--tinta);
+  background: var(--crema);
+}
+
+/* ---------- Textos comunes ---------- */
+.etiqueta {
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: lowercase;
+  font-size: 0.95rem;
+}
+
+h1, h2, h3 {
+  font-family: var(--fuente-titulo);
+  font-weight: 400;
+}
+
+/* ---------- Navegación ---------- */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 28px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 3px solid var(--tinta);
+}
+
+.nav .logo {
+  font-family: var(--fuente-titulo);
+  font-size: 1.2rem;
+  color: var(--tinta);
+  text-decoration: none;
+}
+
+.nav nav {
+  display: flex;
+  gap: 20px;
+}
+
+.nav nav a {
+  color: var(--tinta);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.nav nav a:hover {
+  color: var(--rojo);
+}
+
+/* ---------- Portada (hero) ---------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 140px;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--cielo) 0%, var(--cielo-claro) 100%);
+}
+
+/* Curva que separa la portada de la siguiente sección */
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  background: var(--crema);
+  clip-path: ellipse(60% 100% at 50% 100%);
+}
+
+.hero-contenido {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+}
+
+.hero h1 {
+  font-size: clamp(2.8rem, 9vw, 6rem);
+  line-height: 1;
+  color: var(--blanco);
+  /* Truco para que las letras tengan contorno negro */
+  text-shadow:
+    4px 4px 0 var(--tinta),
+    -2px -2px 0 var(--tinta),
+    2px -2px 0 var(--tinta),
+    -2px 2px 0 var(--tinta);
+  margin: 12px 0 18px;
+}
+
+.hero h1 span {
+  display: block;
+  color: var(--amarillo);
+}
+
+.hero-texto {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 28px;
+}
+
+.boton-hero {
+  display: inline-block;
+  padding: 14px 30px;
+  background: var(--rojo);
+  color: var(--blanco);
+  font-weight: 700;
+  text-decoration: none;
+  border: 3px solid var(--tinta);
+  border-radius: 999px;
+  box-shadow: 5px 5px 0 var(--tinta);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.boton-hero:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--tinta);
+}
+
+/* Texto japonés vertical a los lados */
+.vertical {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: 12px;
+  color: rgba(255, 255, 255, 0.55);
+  z-index: 1;
+  user-select: none;
+}
+
+.vertical.izquierda { left: 4%; }
+.vertical.derecha { right: 4%; }
+
+/* Nubes que flotan */
+.nube {
+  position: absolute;
+  background: var(--blanco);
+  border-radius: 999px;
+  opacity: 0.9;
+  filter: blur(1px);
+  animation: flotar 9s ease-in-out infinite;
+}
+
+.nube::before,
+.nube::after {
+  content: "";
+  position: absolute;
+  background: var(--blanco);
+  border-radius: 50%;
+}
+
+.nube.n1 { width: 180px; height: 55px; top: 18%; left: 12%; }
+.nube.n1::before { width: 80px; height: 80px; top: -35px; left: 25px; }
+.nube.n1::after { width: 60px; height: 60px; top: -22px; left: 90px; }
+
+.nube.n2 { width: 140px; height: 45px; top: 62%; right: 14%; animation-delay: -3s; }
+.nube.n2::before { width: 65px; height: 65px; top: -28px; left: 20px; }
+.nube.n2::after { width: 50px; height: 50px; top: -18px; left: 70px; }
+
+.nube.n3 { width: 110px; height: 36px; top: 30%; right: 28%; animation-delay: -6s; opacity: 0.7; }
+.nube.n3::before { width: 50px; height: 50px; top: -22px; left: 16px; }
+.nube.n3::after { width: 40px; height: 40px; top: -14px; left: 55px; }
+
+@keyframes flotar {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(40px); }
+}
+
+/* ---------- Secciones ---------- */
+.seccion {
+  position: relative;
+  padding: 80px 24px 100px;
+  text-align: center;
+}
+
+.seccion h2 {
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  margin: 6px 0 32px;
+}
+
+.seccion > * {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Sección buscador: fondo crema */
+.buscar {
+  background: var(--crema);
+}
+
+/* Sección favoritos: fondo oscuro con estrellitas */
+.favoritos {
+  background-color: var(--noche);
+  background-image:
+    radial-gradient(var(--blanco) 1px, transparent 1.5px),
+    radial-gradient(var(--amarillo) 1px, transparent 1.5px);
+  background-size: 60px 60px, 90px 90px;
+  background-position: 0 0, 30px 40px;
+  color: var(--blanco);
+  padding-top: 130px;
+}
+
+.favoritos::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: var(--crema);
+  clip-path: ellipse(60% 100% at 50% 0%);
+}
+
+.favoritos h2 {
+  color: var(--amarillo);
+}
+
+/* ---------- Buscador ---------- */
+.buscador {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+input {
+  flex: 1;
+  min-width: 220px;
+  max-width: 420px;
+  padding: 14px 22px;
+  font-family: var(--fuente-texto);
+  font-size: 1rem;
+  background: var(--blanco);
+  border: 3px solid var(--tinta);
+  border-radius: 999px;
+  box-shadow: 4px 4px 0 var(--tinta);
+}
+
+input:focus {
+  outline: none;
+  background: #fffbe8;
+}
+
+/* ---------- Botones ---------- */
+button {
+  padding: 14px 24px;
+  font-family: var(--fuente-texto);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--blanco);
+  background: var(--rojo);
+  border: 3px solid var(--tinta);
+  border-radius: 999px;
+  box-shadow: 4px 4px 0 var(--tinta);
+  cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+
+button:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--tinta);
+}
+
+button:active:not(:disabled) {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--tinta);
+}
+
+button:disabled {
+  background: #9be58b;
+  color: var(--tinta);
+  cursor: default;
+}
+
+button.secundario {
+  background: var(--blanco);
+  color: var(--tinta);
+}
+
+/* ---------- Contenedores de tarjetas ---------- */
+#resultadoBusqueda {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+#listaFavoritos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 28px;
+  justify-items: center;
+}
+
+/* Mensajes cuando está vacío (sin necesidad de JavaScript) */
+#resultadoBusqueda:empty::before {
+  content: "Escribe un nombre arriba y aparecerá aquí ✨";
+  font-weight: 600;
+  opacity: 0.6;
+}
+
+#listaFavoritos:empty::before {
+  content: "Aún no tienes favoritos. ¡Busca uno y guárdalo!";
+  grid-column: 1 / -1;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+/* ---------- Tarjetas ---------- */
+.tarjeta {
+  width: 100%;
+  max-width: 250px;
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+  color: var(--tinta);
+  background: var(--blanco);
+  border: 3px solid var(--tinta);
+  border-radius: 24px;
+  box-shadow: 7px 7px 0 var(--rojo);
+  animation: aparecer 0.4s ease both;
+  transition: transform 0.2s;
+}
+
+.tarjeta:hover {
+  transform: rotate(-2deg) translateY(-4px);
+}
+
+.tarjeta img {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  padding: 8px;
+  background: var(--amarillo);
+  border: 3px solid var(--tinta);
+  border-radius: 50%;
+  image-rendering: pixelated;
+}
+
+.tarjeta h3 {
+  font-size: 1.4rem;
+  text-transform: capitalize;
+  margin-top: 6px;
+}
+
+/* Ataque y defensa lado a lado, con línea divisoria arriba */
+.stats {
+  display: flex;
+  justify-content: space-around;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 12px 0;
+  border-top: 3px dashed var(--tinta);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-nombre {
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.stat strong {
+  font-family: var(--fuente-titulo);
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+.tarjeta button {
+  margin-top: 4px;
+  width: 100%;
+  padding: 11px 16px;
+}
+
+.tarjeta button.eliminar {
+  background: var(--blanco);
+  color: var(--rojo);
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ---------- Mensaje de error ---------- */
+.mensaje-error {
+  max-width: 420px;
+  padding: 16px 24px;
+  font-weight: 700;
+  color: var(--tinta);
+  background: #ffd6d6;
+  border: 3px solid var(--tinta);
+  border-radius: 20px;
+  box-shadow: 5px 5px 0 var(--rojo);
+  animation: aparecer 0.3s ease both;
+}
+
+/* ---------- Pie de página ---------- */
+.pie {
+  text-align: center;
+  padding: 32px 16px;
+  color: var(--blanco);
+  background: var(--tinta);
+  font-weight: 600;
+}
+
+.pie-chico {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+/* ---------- Pantallas pequeñas ---------- */
+@media (max-width: 700px) {
+  .vertical { display: none; }
+  .nav { padding: 12px 16px; }
+  .nav nav { gap: 12px; }
+}

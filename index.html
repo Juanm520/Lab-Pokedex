@@ -1,13 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div id="container-tarjetas"></div>
+    <title>Tarjetas de ejemplo</title>
 
-    <script type="module" src="./renderTarjeta.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Poppins:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="/main.css">
+    <style>
+        /* Solo para esta página de ejemplo */
+        .ejemplo {
+            padding: 60px 24px;
+            text-align: center;
+        }
+
+        .ejemplo h1 {
+            font-size: clamp(1.8rem, 5vw, 2.6rem);
+            margin: 6px 0 36px;
+        }
+
+        .fila {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="ejemplo">
+        <!-- Tarjetas favoritas -->
+        <h2>Mis favoritos</h2>
+        <div id="listaFavoritos"></div>
+
+        <p class="etiqueta">(vista previa)</p>
+        <h1>Así se ven las tarjetas</h1>
+
+        <!-- Tarjetas generadas desde la API -->
+        <div class="fila" id="container-tarjetas"></div>
+        
+    </main>
+
+    <script type="module" src="/renderTarjeta.js"></script>
+
 </body>
+
 </html>
