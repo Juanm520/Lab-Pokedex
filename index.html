@@ -4,51 +4,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarjetas de ejemplo</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Poppins:wght@400;600;700&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="/main.css">
-    <style>
-        /* Solo para esta página de ejemplo */
-        .ejemplo {
-            padding: 60px 24px;
-            text-align: center;
-        }
-
-        .ejemplo h1 {
-            font-size: clamp(1.8rem, 5vw, 2.6rem);
-            margin: 6px 0 36px;
-        }
-
-        .fila {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 32px;
-            justify-content: center;
-        }
-    </style>
+    <title>Mi Pokédex</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
 
-    <main class="ejemplo">
-        <!-- Tarjetas favoritas -->
-        <h2>Mis favoritos</h2>
-        <div id="listaFavoritos"></div>
+    <!-- Encabezado de la página -->
+    <header>
+        <div class="encabezado-titulo">
 
-        <p class="etiqueta">(vista previa)</p>
-        <h1>Así se ven las tarjetas</h1>
+            <img
+                src="./images/pokemones.png"
+                alt="Pokémon decorativos"
+                class="pokemon-decorativo pokemon-izquierdo"
+            >
 
-        <!-- Tarjetas generadas desde la API -->
-        <div class="fila" id="container-tarjetas"></div>
-        
+            <div class="texto-encabezado">
+                <h1 class="titulo-principal">POKEDEX</h1>
+                <p>Sistema de exploración Pokémon</p>
+            </div>
+
+            <img
+                src="./images/pokemones.png"
+                alt="Pokémon decorativos"
+                class="pokemon-decorativo pokemon-derecho"
+            >
+
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main>
+
+        <!-- Sección de búsqueda -->
+        <section>
+            <h2>Buscar Pokémon</h2>
+
+            <p>
+                Escribe el nombre del Pokémon que quieres encontrar.
+            </p>
+
+            <form id="formularioBusqueda">
+
+                <label for="inputPokemon">
+                    Nombre del Pokémon:
+                </label>
+
+                <input
+                    type="text"
+                    id="inputPokemon"
+                    name="pokemon"
+                    placeholder="Ejemplo: Pikachu"
+                    autocomplete="off"
+                >
+
+                <button type="submit" id="btnBuscar">
+                    Buscar
+                </button>
+
+                <button type="button" id="btnLimpiar">
+                    Limpiar
+                </button>
+
+            </form>
+
+            <!-- Mensaje de búsqueda -->
+            <div id="mensajeBusqueda" aria-live="polite">
+                <h3>¡Comienza tu exploración!</h3>
+
+                <p>
+                    Busca un Pokémon para conocer sus características.
+                </p>
+            </div>
+
+            <!-- Resultado del Pokémon -->
+            <div id="resultadoBusqueda"></div>
+
+        </section>
+
+        <!-- Sección de favoritos -->
+        <section>
+            <h2>Mis favoritos</h2>
+
+            <p>
+                Guarda los Pokémon que más te gusten.
+            </p>
+
+            <p>
+                Pokémon guardados:
+                <strong id="contadorFavoritos">0</strong>
+            </p>
+
+            <!-- Lista de favoritos -->
+            <div id="listaFavoritos">
+                <p>Aún no tienes Pokémon favoritos.</p>
+            </div>
+
+        </section>
+
     </main>
 
-    <script type="module" src="/renderTarjeta.js"></script>
+    <!-- Pie de página -->
+    <footer class="pie-pagina">
+
+        <p class="pie-titulo">POKEDEX</p>
+
+        <p>
+            Explora, descubre y guarda tus Pokémon favoritos.
+        </p>
+
+        <p class="pie-creditos">
+            Proyecto académico | Juan M | Andres Satoba |
+            Juan Lozano | Nicole Bermudez | Naya González |
+            Brandon Moreno
+        </p>
+
+        <p class="pie-copyright">
+            © 2026 Pokédex. Todos los derechos reservados.
+        </p>
+
+    </footer>
+
+    <!-- Archivo JavaScript -->
+    <script src="main.js"></script>
 
 </body>
 
