@@ -1,33 +1,52 @@
 import { traerPokemones } from "./api.js";
 
+const contenedor = document.getElementById("container-tarjetas");
+const favoritos = document.getElementById("listaFavoritos");
+
+// Plantilla de tarjeta normal
 function crearTarjeta(pokemon) {
-    const tarjeta = document.createElement("div");
-    const imagen = document.createElement("img");
-    const nombre = document.createElement("h3");
-    const ataque = document.createElement("p");
-    const defensa = document.createElement("p");
-
-    imagen.src = pokemon.sprites.front_default;
-    nombre.textContent = pokemon.name;
-    ataque.textContent = "Ataque: " + pokemon.stats[1].base_stat;
-    defensa.textContent = "Defensa: " + pokemon.stats[2].base_stat;
-
-    tarjeta.appendChild(imagen);
-    tarjeta.appendChild(nombre);
-    tarjeta.appendChild(ataque);
-    tarjeta.appendChild(defensa);
-
-    return tarjeta;
+    return `
+        <div class="tarjeta" data-nombre="${pokemon.name}">
+            <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+            <h3>${pokemon.name}</h3>
+            <div class="stats">
+                <div class="stat"><span class="stat-nombre">⚔️ Ataque</span><strong>${pokemon.stats[1].base_stat}</strong></div>
+                <div class="stat"><span class="stat-nombre">🛡️ Defensa</span><strong>${pokemon.stats[2].base_stat}</strong></div>
+            </div>
+            <button class="agregar-favorito">Agregar a favoritos</button>
+            <button class="eliminar">Eliminar</button>
+        </div>
+    `;
 }
 
+// Plantilla de tarjeta favorita
+function crearFavorito(pokemon) {
+    return `
+        <div class="tarjeta" data-nombre="${pokemon.name}">
+            <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+            <h3>${pokemon.name}</h3>
+            <div class="stats">
+                <div class="stat"><span class="stat-nombre">⚔️ Ataque</span><strong>${pokemon.stats[1].base_stat}</strong></div>
+                <div class="stat"><span class="stat-nombre">🛡️ Defensa</span><strong>${pokemon.stats[2].base_stat}</strong></div>
+            </div>
+            <button disabled>✓ En favoritos</button>
+            <button class="eliminar">Eliminar</button>
+        </div>
+    `;
+}
+
+// Mostrar Pokémon
 async function mostrarPokemones() {
     const pokemones = await traerPokemones();
-    const contenedor = document.getElementById("container-tarjetas");
 
-    for (const pokemon of pokemones) {
-        const tarjeta = crearTarjeta(pokemon);
-        contenedor.appendChild(tarjeta);
-    }
+    pokemones.forEach(pokemon => {
+        contenedor.innerHTML += crearTarjeta(pokemon);
+    });
+}
+
+// Agregar a favoritos
+export function agregarAFavoritos(pokemon) {
+    favoritos.innerHTML += crearFavorito(pokemon);
 }
 
 mostrarPokemones();
