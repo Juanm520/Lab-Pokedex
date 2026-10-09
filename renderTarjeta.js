@@ -77,5 +77,5 @@ async function mostrarPokemones() {
     });
 }
 
-// 6. Ejecutar la función inicial
+// Ejecutar la función inicial
 mostrarPokemones();
