@@ -12,43 +12,66 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="/main.css">
-    <style>
-        /* Solo para esta página de ejemplo */
-        .ejemplo {
-            padding: 60px 24px;
-            text-align: center;
-        }
-
-        .ejemplo h1 {
-            font-size: clamp(1.8rem, 5vw, 2.6rem);
-            margin: 6px 0 36px;
-        }
-
-        .fila {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 32px;
-            justify-content: center;
-        }
-    </style>
+    <script type="module" src="./events.js"></script>
+    <script type="module" src="/renderTarjeta.js"></script>
 </head>
 
 <body>
 
+
     <main class="ejemplo">
+
+          <!-- Búsqueda de Pokémon -->
+        <section>
+            <h2>Buscar Pokémon</h2>
+            <p>Escribe el nombre del Pokémon que quieres encontrar.</p>
+
+            <form id="formularioBusqueda">
+                <label for="inputPokemon">Nombre del Pokémon:</label>
+
+                <input
+                    type="text"
+                    id="inputPokemon"
+                    name="pokemon"
+                    placeholder="Ejemplo: Pikachu"
+                    autocomplete="off"
+                >
+
+                <button type="submit" id="btnBuscar">
+                    Buscar
+                </button>
+
+                <button type="button" id="btnLimpiar">
+                    Limpiar
+                </button>
+            </form>
+
+            <!-- Mensaje para el usuario -->
+            <div id="mensajeBusqueda" aria-live="polite">
+                <h3>¡Comienza tu exploración!</h3>
+                <p>Busca un Pokémon para conocer sus características.</p>
+            </div>
+
+            <!-- Aquí aparecerá el Pokémon encontrado -->
+            <div id="resultadoBusqueda"></div>
+        </section>
+
+
+
+
+
         <!-- Tarjetas favoritas -->
         <h2>Mis favoritos</h2>
         <div id="listaFavoritos"></div>
 
-        <p class="etiqueta">(vista previa)</p>
-        <h1>Así se ven las tarjetas</h1>
+        <h1>Algunos pokemones</h1>
 
         <!-- Tarjetas generadas desde la API -->
         <div class="fila" id="container-tarjetas"></div>
         
     </main>
 
-    <script type="module" src="/renderTarjeta.js"></script>
+    
 
 </body>
 
