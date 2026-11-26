@@ -1,39 +1,37 @@
-export function pokemonFavoritosLocalStorage(pokemon){
+const CLAVE_FAVORITOS = "PokemonesFavoritos";
 
-    let pokemonesFavoritos = []
-
-    const favoritosGuardados = localStorage.getItem("PokemonesFavoritos")
-
-    if (favoritosGuardados !== null) {
-        pokemonesFavoritos = JSON.parse(favoritosGuardados)
-    }
-
+export function pokemonFavoritosLocalStorage(pokemon) {
+    const pokemonesFavoritos = obtenerPokemonesfavoritos();
     const pokemonExiste = pokemonesFavoritos.some(
-        pokemonFavorito => pokemonFavorito.nombre === pokemon.nombre
-    )
+        favorito => favorito.id === pokemon.id
+    );
 
     if (!pokemonExiste) {
-        pokemonesFavoritos.push(pokemon)
+        pokemonesFavoritos.push(pokemon);
     }
 
-    localStorage.setItem("PokemonesFavoritos", JSON.stringify(pokemonesFavoritos))
+    localStorage.setItem(CLAVE_FAVORITOS, JSON.stringify(pokemonesFavoritos));
 }
 
-export function obtenerPokemonesfavoritos(){
-    const pokemonesFavoritos = localStorage.getItem("PokemonesFavoritos")
-    return JSON.parse(pokemonesFavoritos)
+export function obtenerPokemonesfavoritos() {
+    const favoritosGuardados = localStorage.getItem(CLAVE_FAVORITOS);
+    if (favoritosGuardados === null) {
+        return [];
+    }
+
+    const pokemonesFavoritos = JSON.parse(favoritosGuardados);
+    if (!Array.isArray(pokemonesFavoritos)) {
+        throw new Error("Los favoritos guardados no tienen un formato válido.");
+    }
+
+    return pokemonesFavoritos;
 }
 
-export function eliminarPokemonFavorito(pokemonId){
-   const favoritosGuardados = localStorage.getItem("PokemonesFavoritos")
+export function eliminarPokemonFavorito(pokemonId) {
+    const pokemonesFavoritos = obtenerPokemonesfavoritos();
+    const favoritosActualizados = pokemonesFavoritos.filter(
+        pokemon => pokemon.id !== pokemonId
+    );
 
-   // Filtrar y elminar.
-   const pokemonesFavoritos = favoritosGuardados === null ? [] : JSON.parse(favoritosGuardados)
-
-   const favoritosActualizados = pokemonesFavoritos.filter(
-       pokemon => pokemon.id !== pokemonId
-   )
-
-   // Guardarlo en el LocalStorage.
-   localStorage.setItem("PokemonesFavoritos", JSON.stringify(favoritosActualizados))
+    localStorage.setItem(CLAVE_FAVORITOS, JSON.stringify(favoritosActualizados));
 }

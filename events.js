@@ -1,51 +1,26 @@
-import { obtenerPokemonesfavoritos, pokemonFavoritosLocalStorage, eliminarPokemonFavorito } from "./localStorage"
-
-// Tarea 6: Configurar Event Listeners
-
-// Input y boton buscar
-const btnBuscar = document.getElementById('btnBuscar');
-const inputPokemon = document.getElementById('inputPokemon');
-
-// Agregar Listener
-btnBuscar.addEventListener('click',  async () => {
-
+formularioBusqueda.addEventListener("submit", async evento => {
+    evento.preventDefault();
     const nombre = inputPokemon.value.trim();
 
-    if (nombre === '') {
-        alert('Por favor, ingresa un nombre.');
-        return
+    if (!nombre) {
+        mostrarMensajeBusqueda("Escribe el nombre de un Pokémon para buscarlo.");
+        inputPokemon.focus();
+        return;
     }
 
-    // Limpiar resultado anterior
-    resultadoBusqueda.innerHTML = ''; 
+    resultadoBusqueda.replaceChildren();
+    mostrarMensajeBusqueda("Buscando Pokémon...");
 
     try {
-        const pokemon = await fetchPokemon(nombre);
-        if (pokemon) {
-            crearTarjeta(pokemon, resultadoBusqueda, false);
-        }
-    }
-    catch(error) {
-        console.log("Fallo al encontrar el pokemon " + error)
+        const pokemon = await traerPokemon(nombre.toLowerCase());
+
+        resultadoBusqueda.append(
+            crearTarjeta(pokemon, { onAgregarFavorito: agregarFavorito })
+        );
+
+        mostrarMensajeBusqueda(`Encontramos a ${pokemon.name}.`);
+    } catch (error) {
+        console.error("Falló la búsqueda del Pokémon.", error);
+        mostrarMensajeBusqueda(`No se encontró "${nombre}". Revisa el nombre e inténtalo de nuevo.`);
     }
 });
-
-// Boton Limpiar
-const btnLimpiar = document.getElementById('btnLimpiar');
-btnLimpiar.addEventListener('click', () => {
-    inputPokemon.value = '';
-    resultadoBusqueda.innerHTML = '';
-});
-
-
-// Agregar favoritos
-const btnAgregarFavoritos = document.getElementById('btnFavoritos');
-btnAgregarFavoritos.addEventListener("click", () => {
-    pokemonFavoritosLocalStorage()
-    renderPokemonFavoritos()
-})
-
-// Inicialización
-document.addEventListener('DOMContentLoaded', obtenerPokemonesfavoritos);
-const resultadoBusqueda = document.getElementById('resultadoBusqueda');
-const listaFavoritos = document.getElementById('listaFavoritos');
